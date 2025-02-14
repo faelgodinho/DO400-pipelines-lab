@@ -6,7 +6,11 @@ pipeline {
   stages {
     stage('Test') {
       parallel {
-        ...output omitted...
+        stage('Unit tests') {
+          steps {
+            sh './mvnw test -D testGroups=unit'
+          }
+        }
         stage('Integration tests') {
           when {
             expression { return params.RUN_INTEGRATION_TESTS }
